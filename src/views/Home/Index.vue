@@ -1,9 +1,35 @@
-<template>Index</template>
+<template>
+  <div>
+    <router-view v-slot="{ Component }">
+      <transition
+        enter-active-class="animate__animated animate__fadeIn"
+        leave-active-class="animate__animated animate__fadeOut"
+      >
+        <component :is="Component" />
+      </transition>
+    </router-view>
+    <van-tabbar v-model="store.menu">
+      <van-tabbar-item
+        icon="wap-home"
+        @click="$router.push({ name: 'UserHome' })"
+        >首页
+      </van-tabbar-item>
+      <van-tabbar-item icon="column" @click="$router.push({ name: '' })"
+        >统计
+      </van-tabbar-item>
+      <van-tabbar-item icon="friends">朋友</van-tabbar-item>
+      <van-tabbar-item
+        icon="manager"
+        @click="$router.push({ name: 'UserInfo' })"
+        >我的
+      </van-tabbar-item>
+    </van-tabbar>
+  </div>
+</template>
 
-<script>
-export default {
-  name: "Index",
-};
+<script setup>
+import { defaultStore } from "../../store";
+import "animate.css";
+
+const store = defaultStore();
 </script>
-
-<style scoped></style>
