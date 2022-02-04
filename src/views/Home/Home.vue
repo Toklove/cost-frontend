@@ -43,11 +43,12 @@
       <van-empty v-else description="暂无数据" image="error" />
     </van-pull-refresh>
 
-    <button class="add">
+    <button class="add" @click="store.editShow = true">
       <van-icon name="records" />
     </button>
-    <PopType :refresh="onRefresh" :v-show="store.typeShow" />
-    <PopDate :refresh="onRefresh" :v-show="store.dateShow" />
+    <PopType :refresh="onRefresh" />
+    <PopDate :refresh="onRefresh" />
+    <PopEdit :refresh="onRefresh" edit-type="new" />
   </div>
 </template>
 
@@ -56,6 +57,7 @@ import { onMounted, reactive } from "vue";
 import { defaultStore } from "../../store";
 import PopType from "../../components/PopType.vue";
 import PopDate from "../../components/PopDate.vue";
+import PopEdit from "../../components/PopEdit.vue";
 import CardItem from "../../components/CardItem.vue";
 import { Get } from "../../utils/request";
 import dayjs from "dayjs";

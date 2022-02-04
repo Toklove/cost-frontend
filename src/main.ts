@@ -9,11 +9,14 @@ import {
   Cell,
   CellGroup,
   DatetimePicker,
+  Dialog,
   Empty,
   Field,
   Form,
   Icon,
   Image as VanImage,
+  NavBar,
+  NumberKeyboard,
   Popup,
   PullRefresh,
   Tab,
@@ -42,4 +45,7 @@ app.use(Cell);
 app.use(CellGroup);
 app.use(VanImage);
 app.use(PullRefresh);
+app.use(NavBar);
+app.use(Dialog);
+app.use(NumberKeyboard);
 app.mount("#app");

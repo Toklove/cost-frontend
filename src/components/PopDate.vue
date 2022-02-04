@@ -11,8 +11,8 @@
       :formatter="formatter"
       :max-date="date.maxDate"
       :min-date="date.minDate"
+      :type="store.dateType"
       title="选择年月"
-      type="year-month"
       @confirm="complete"
     />
   </van-popup>
@@ -26,7 +26,7 @@ const store = defaultStore();
 const props = defineProps({
   refresh: {
     type: Function,
-    required: true,
+    required: false,
   },
 });
 const formatter = (type, val) => {
@@ -35,6 +35,9 @@ const formatter = (type, val) => {
   }
   if (type === "month") {
     return `${val}月`;
+  }
+  if (type === "day") {
+    return `${val}日`;
   }
   return val;
 };
@@ -49,11 +52,6 @@ function complete() {
 }
 </script>
 
-<style>
-.van-popup {
-  background: #f5f5f5;
-}
-</style>
 <style lang="scss" scoped>
 .type-header {
   position: -webkit-sticky;

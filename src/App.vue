@@ -13,7 +13,9 @@ import "animate.css";
   </router-view>
 </template>
 
-<style>
+<style lang="scss">
+@import url("./assets/css/default.scss");
+
 * {
   margin: 0;
   padding: 0;
@@ -27,6 +29,6 @@ body {
 .container {
   position: absolute;
   width: 100%;
-  height: 100vh;
+  height: 80vh;
 }
 </style>

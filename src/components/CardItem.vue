@@ -20,6 +20,7 @@
         v-for="item in bill.bills"
         :label="item.remark"
         :title="item.type_name"
+        @click="$router.push({ name: 'Detail', params: { id: item.id } })"
       >
         <template #value
           ><span :class="item.pay_type === 2 ? 'plus' : 'reduce'"
@@ -53,12 +54,6 @@ props.bill.bills.forEach((r: { pay_type: number; amount: string }) => {
 
 <style lang="scss" scoped>
 .item {
-  width: 90%;
-  box-shadow: 0.08rem 0.05333rem 0.53333rem 0.26667rem rgb(0 0 0 / 10%);
-  border-radius: 0.26667rem;
-  overflow: hidden;
-  margin: 0.3rem auto;
-
   .header {
     padding: 0 0.26667rem;
     display: flex;
@@ -86,16 +81,6 @@ props.bill.bills.forEach((r: { pay_type: number; amount: string }) => {
         margin-right: 0.10667rem;
         vertical-align: -0.10667rem;
       }
-    }
-  }
-
-  .body {
-    .plus {
-      color: rgb(247, 206, 100);
-    }
-
-    .reduce {
-      color: rgb(57, 190, 119);
     }
   }
 }

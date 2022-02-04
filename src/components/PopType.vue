@@ -19,7 +19,7 @@
       <div class="title">支出</div>
       <div class="type-item">
         <van-button
-          v-for="item in moneyOut"
+          v-for="item in store.typeListOut"
           :key="item"
           :class="{
             active:
@@ -34,7 +34,7 @@
       <div class="title">收入</div>
       <div class="type-item">
         <van-button
-          v-for="item in moneyIn"
+          v-for="item in store.typeListIn"
           :key="item"
           :class="{
             active:
@@ -52,7 +52,7 @@
 
 <script setup>
 import { defaultStore } from "../store";
-import { defineProps, onMounted, ref } from "vue";
+import { defineProps, onMounted } from "vue";
 import { Get } from "../utils/request";
 
 const props = defineProps({
@@ -62,15 +62,13 @@ const props = defineProps({
   },
 });
 const store = defaultStore();
-const moneyOut = ref([]);
-const moneyIn = ref([]);
 onMounted(() => {
   Get("/type/list").then((res) => {
     res.data.list.forEach((res) => {
       if (res.type === 1) {
-        moneyOut.value.push(res);
+        store.typeListOut.push(res);
       } else {
-        moneyIn.value.push(res);
+        store.typeListIn.push(res);
       }
     });
   });
@@ -79,15 +77,9 @@ onMounted(() => {
 function setType(item) {
   store.nowData.active_name = item.name;
   store.nowData.type_id = item.id;
-  console.log(store.nowData.type_id);
 }
 </script>
 
-<style>
-.van-popup {
-  background: #f5f5f5;
-}
-</style>
 <style lang="scss" scoped>
 .type-header {
   position: -webkit-sticky;

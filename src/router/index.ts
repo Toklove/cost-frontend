@@ -24,6 +24,12 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
+  {
+    path: "/bill/detail/:id",
+    name: "Detail",
+    props: true,
+    component: () => import("../views/Detail/Index.vue"),
+  },
 ];
 const router = createRouter({
   history: createWebHashHistory(),

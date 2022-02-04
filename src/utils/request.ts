@@ -2,7 +2,7 @@ import axios from "axios";
 import { Toast } from "vant";
 
 const request = axios.create({
-  baseURL: "http://localhost:8008/api",
+  baseURL: "http://192.168.1.130:8008/api",
   timeout: 5000,
 });
 request.defaults.headers.post["Content-Type"] = "application/json";
@@ -50,4 +50,30 @@ function Post(url: string, data: any) {
   });
 }
 
-export { Get, Post };
+function Delete(url: string, data: any) {
+  return new Promise(async (resolve, reject) => {
+    await request
+      .delete(url, data)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((e) => {
+        reject(e);
+      });
+  });
+}
+
+function Put(url: string, data: any) {
+  return new Promise(async (resolve, reject) => {
+    await request
+      .put(url, data)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((e) => {
+        reject(e);
+      });
+  });
+}
+
+export { Get, Post, Delete, Put };
