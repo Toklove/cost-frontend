@@ -14,10 +14,9 @@
         @click="$router.push({ name: 'UserHome' })"
         >首页
       </van-tabbar-item>
-      <van-tabbar-item icon="column" @click="$router.push({ name: '' })"
+      <van-tabbar-item icon="column" @click="$router.push({ name: 'Data' })"
         >统计
       </van-tabbar-item>
-      <van-tabbar-item icon="friends">朋友</van-tabbar-item>
       <van-tabbar-item
         icon="manager"
         @click="$router.push({ name: 'UserInfo' })"

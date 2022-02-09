@@ -2,10 +2,9 @@ import axios from "axios";
 import { Toast } from "vant";
 
 const request = axios.create({
-  baseURL: "http://192.168.1.130:8008/api",
+  baseURL: "http://localhost:8008/api",
   timeout: 5000,
 });
-request.defaults.headers.post["Content-Type"] = "application/json";
 
 request.interceptors.request.use((config) => {
   const token = window.localStorage.getItem("accessToken");
@@ -76,4 +75,4 @@ function Put(url: string, data: any) {
   });
 }
 
-export { Get, Post, Delete, Put };
+export { Get, Post, Delete, Put, request };

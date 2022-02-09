@@ -24,6 +24,7 @@ import {
   TabbarItem,
   Tabs,
   Toast,
+  Uploader,
 } from "vant/es";
 
 const app = createApp(App);
@@ -48,4 +49,5 @@ app.use(PullRefresh);
 app.use(NavBar);
 app.use(Dialog);
 app.use(NumberKeyboard);
+app.use(Uploader);
 app.mount("#app");

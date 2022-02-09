@@ -66,7 +66,6 @@ const data = ref({
 });
 onMounted(() => {
   Get(`/bill/${props.id}`).then((res) => {
-    console.log(res);
     data.value = res.data.bill;
   });
 });

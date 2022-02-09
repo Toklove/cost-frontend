@@ -47,7 +47,6 @@ const date = reactive({
 });
 
 function complete() {
-  props.refresh();
   store.dateShow = false;
 }
 </script>

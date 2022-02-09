@@ -2,7 +2,7 @@
   <div class="container">
     <div class="header">
       <div class="userinfo">
-        <span class="nickname">{{ store.userInfo.username }}</span>
+        <span class="nickname">昵称：{{ store.userInfo.username }}</span>
         <span class="slogan"
           ><img
             alt=""
@@ -23,7 +23,11 @@
     </div>
     <div class="cell">
       <van-cell-group>
-        <van-cell is-link title="修改用户信息" />
+        <van-cell
+          is-link
+          title="修改用户信息"
+          @click="$router.push({ name: 'UserEdit' })"
+        />
         <van-cell is-link title="重置密码" />
       </van-cell-group>
     </div>
@@ -43,7 +47,7 @@ import { Get } from "../../utils/request";
 
 const store = defaultStore();
 onMounted(() => {
-  store.menu = 3;
+  store.menu = 2;
   Get("/user/userinfo").then((res) => {
     store.userInfo = res.data.userInfo;
   });

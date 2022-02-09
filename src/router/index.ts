@@ -22,6 +22,12 @@ const routes: Array<RouteRecordRaw> = [
         name: "UserInfo",
         component: () => import("../views/User/Index.vue"),
       },
+      {
+        path: "/data",
+        name: "Data",
+        props: true,
+        component: () => import("../views/data/Index.vue"),
+      },
     ],
   },
   {
@@ -29,6 +35,12 @@ const routes: Array<RouteRecordRaw> = [
     name: "Detail",
     props: true,
     component: () => import("../views/Detail/Index.vue"),
+  },
+  {
+    path: "/user/edit",
+    name: "UserEdit",
+    props: true,
+    component: () => import("../views/User/Edit.vue"),
   },
 ];
 const router = createRouter({

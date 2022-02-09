@@ -63,15 +63,17 @@ const props = defineProps({
 });
 const store = defaultStore();
 onMounted(() => {
-  Get("/type/list").then((res) => {
-    res.data.list.forEach((res) => {
-      if (res.type === 1) {
-        store.typeListOut.push(res);
-      } else {
-        store.typeListIn.push(res);
-      }
+  if (store.typeListOut.length === 0 && store.typeListIn.length === 0) {
+    Get("/type/list").then((res) => {
+      res.data.list.forEach((res) => {
+        if (res.type === 1) {
+          store.typeListOut.push(res);
+        } else {
+          store.typeListIn.push(res);
+        }
+      });
     });
-  });
+  }
 });
 
 function setType(item) {
