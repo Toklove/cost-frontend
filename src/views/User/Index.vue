@@ -28,7 +28,7 @@
           title="修改用户信息"
           @click="$router.push({ name: 'UserEdit' })"
         />
-        <van-cell is-link title="重置密码" />
+        <van-cell is-link title="重置密码" @click="pass.show = true" />
       </van-cell-group>
     </div>
     <van-button
@@ -37,14 +37,36 @@
       @click="logout"
       >退出登录
     </van-button>
+    <van-dialog
+      v-model:show="pass.show"
+      :showConfirmButton="false"
+      title="修改密码"
+    >
+      <van-cell-group inset style="padding-bottom: 0.69333rem">
+        <van-field v-model="pass.pass" placeholder="请输入新密码" />
+        <van-field v-model="pass.again" placeholder="请确认新密码" />
+        <div class="dialog-btn">
+          <van-button type="danger" @click="pass.show = false"
+            >取消
+          </van-button>
+          <van-button type="primary" @click="ResetPass">确认</van-button>
+        </div>
+      </van-cell-group>
+    </van-dialog>
   </div>
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, reactive } from "vue";
 import { defaultStore } from "../../store";
-import { Get } from "../../utils/request";
+import { Get, Put } from "../../utils/request";
+import { Toast } from "vant";
 
+const pass = reactive({
+  pass: "",
+  again: "",
+  show: false,
+});
 const store = defaultStore();
 onMounted(() => {
   store.menu = 2;
@@ -56,6 +78,23 @@ onMounted(() => {
 function logout() {
   window.localStorage.removeItem("accessToken");
   location.reload();
+}
+
+function ResetPass() {
+  if (pass.pass !== pass.again) {
+    Toast("两次输入的密码不一致，请重试");
+    return;
+  }
+  Put("/user/userinfo", { password: pass.pass }).then((res) => {
+    if (res.code === 200) {
+      Toast("修改成功");
+      setTimeout(() => {
+        pass.show = false;
+      }, 1000);
+    } else {
+      Toast(res.msg);
+    }
+  });
 }
 </script>
 
@@ -116,5 +155,18 @@ function logout() {
   bottom: 1.86667rem;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.dialog-btn {
+  width: 80%;
+  margin: 0.5rem auto 0;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 1rem;
+  overflow: hidden;
+
+  .van-button {
+    flex: 1;
+  }
 }
 </style>

@@ -38,7 +38,9 @@
           placeholder="请输入个性签名"
         />
       </van-cell-group>
-      <van-button size="large" type="primary">保存</van-button>
+      <van-button size="large" type="primary" @click="saveUserInfo"
+        >保存
+      </van-button>
     </div>
   </div>
 </template>
@@ -46,14 +48,14 @@
 <script setup>
 import { defaultStore } from "../../store";
 import { Toast } from "vant/es";
-import { request } from "../../utils/request";
+import { Get, Put, request } from "../../utils/request";
+import { onMounted } from "vue";
 
 const store = defaultStore();
 const onOversize = (file) => {
   Toast("文件大小不能超过 500kb");
 };
 const afterRead = (file) => {
-  // 此时可以自行将文件上传至服务器
   let targetFormData = new FormData();
   targetFormData.append("file", file.file);
   console.log(file);
@@ -64,9 +66,31 @@ const afterRead = (file) => {
   }).then((res) => {
     console.log(res);
     Toast(res.data.msg);
-    store.userInfo.avatar = `http://localhost:8008/${res.data.data.res}`;
+    store.userInfo.avatar = `${request.defaults.baseURL.slice(0, -3)}${
+      res.data.data.res
+    }`;
   });
 };
+
+onMounted(() => {
+  Get("/user/userinfo").then((res) => {
+    store.userInfo = res.data.userInfo;
+  });
+});
+
+function saveUserInfo() {
+  Put("/user/userinfo", {
+    avatar: store.userInfo.avatar,
+    slogan: store.userInfo.slogan,
+  }).then((res) => {
+    console.log(res);
+    if (res.code === 200) {
+      Toast(res.msg);
+    } else {
+      Toast("修改失败请重试");
+    }
+  });
+}
 </script>
 
 <style lang="scss" scoped>
